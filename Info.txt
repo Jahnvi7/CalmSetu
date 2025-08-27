@@ -1,0 +1,35 @@
+CalmSetu/
+│── Frontend/      → HTML, CSS, JS files
+|   ├── app.py
+│   ├── requirements.txt
+│   ├── config.py
+│   ├── routes/
+│   │   ├── auth_routes.py
+│   │   └── task_routes.py
+│   ├── models/
+│   │   ├── user_model.py
+│   │   └── task_model.py
+│   └── __init__.py
+|
+│── Backend/       → Flask or Node.js server code
+|   ├── package.json
+│   ├── public/
+│   │   └── index.html
+│   └── src/
+│       ├── index.js
+│       ├── App.js
+│       ├── components/
+│       │   ├── TaskCard.js
+│       │   └── LoginForm.js
+│       ├── pages/
+│       │   ├── Dashboard.js
+│       │   └── Profile.js
+│       └── services/
+│           └── api.js
+|
+│── Database/      → SQLite DB file OR JSON/CSV dummy data
+│   ├── schema.sql
+│   └── migrations/
+|
+|── LICENSE
+│── README.md      → Explain your project

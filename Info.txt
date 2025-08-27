@@ -1,35 +1,22 @@
 CalmSetu/
-│── Frontend/      → HTML, CSS, JS files
-|   ├── app.py
-│   ├── requirements.txt
-│   ├── config.py
-│   ├── routes/
-│   │   ├── auth_routes.py
-│   │   └── task_routes.py
-│   ├── models/
-│   │   ├── user_model.py
-│   │   └── task_model.py
-│   └── __init__.py
-|
-│── Backend/       → Flask or Node.js server code
-|   ├── package.json
-│   ├── public/
-│   │   └── index.html
-│   └── src/
-│       ├── index.js
-│       ├── App.js
-│       ├── components/
-│       │   ├── TaskCard.js
-│       │   └── LoginForm.js
-│       ├── pages/
-│       │   ├── Dashboard.js
-│       │   └── Profile.js
-│       └── services/
-│           └── api.js
-|
-│── Database/      → SQLite DB file OR JSON/CSV dummy data
-│   ├── schema.sql
-│   └── migrations/
-|
-|── LICENSE
-│── README.md      → Explain your project
+│
+├── frontend/                # Client-side
+│   ├── index.html           # Main webpage
+│   ├── style.css            # Styling
+│   ├── script.js            # JavaScript logic
+│   └── assets/              # Images, icons, fonts
+│
+├── backend/                 # Server-side (Python)
+│   ├── app.py               # Main server (Flask/Django/FastAPI)
+│   ├── requirements.txt     # List of Python libraries
+│   └── routes/              # API routes (optional)
+│       └── user_routes.py
+│
+├── database/                # Database related
+│   ├── schema.sql           # SQL table creation
+│   ├── seed.sql             # Sample data insert
+│   └── db_config.py         # Python file to connect backend ↔ SQL
+│
+├── README.md                # Project documentation
+├── LICENSE
+└── .gitignore               # Ignore files (like venv, __pycache__)

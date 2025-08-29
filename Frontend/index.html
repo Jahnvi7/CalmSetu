@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CalmSetu — Prototype UI</title>
+  <style>
+    :root {
+      --bg: #f7f9fb;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --accent: #6d28d9; /* violet */
+      --accent-2: #14b8a6; /* teal */
+      --ring: rgba(109, 40, 217, 0.35);
+      --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+      --radius: 14px;
+      --grad: linear-gradient(120deg, var(--accent) 0%, #8b5cf6 35%, #22d3ee 70%, var(--accent-2) 100%);
+    }
+    [data-theme="dark"]{
+      --bg: #0b1220;
+      --surface: #0f172a;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --shadow: 0 8px 24px rgba(0,0,0,0.45);
+      --ring: rgba(34, 211, 238, 0.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      line-height:1.5;
+    }
+    /* Header */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(8px);
+      background: color-mix(in oklab, var(--bg) 80%, #ffffff 20%);
+      border-bottom: 1px solid color-mix(in oklab, var(--muted) 25%, transparent);
+    }
+    .nav .wrap{max-width:1100px;margin:auto;display:flex;align-items:center;gap:18px;padding:14px 20px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.2px}
+    .logo{width:28px;height:28px;border-radius:8px;background:var(--grad); box-shadow: inset 0 0 0 2px rgba(255,255,255,.25)}
+    .spacer{flex:1}
+    .nav a{color:var(--text);text-decoration:none;font-weight:600;opacity:.9}
+    .nav a:hover{opacity:1}
+    .btn{appearance:none;border:none;border-radius:999px;padding:10px 16px;font-weight:700;cursor:pointer;transition:transform .06s ease, box-shadow .2s ease, opacity .2s;}
+    .btn-primary{background:var(--grad);color:#fff;box-shadow: var(--shadow)}
+    .btn-ghost{background:transparent;color:var(--text)}
+    .btn:active{transform:translateY(1px)}
+    .theme-toggle{border:1px solid color-mix(in oklab, var(--muted) 25%, transparent);background:var(--surface);}
+
+    /* Sections */
+    section{padding:72px 20px}
+    .container{max-width:1100px;margin:auto}
+
+    /* Hero */
+    .hero{padding:96px 20px; position:relative; overflow:hidden}
+    .hero .container{display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background: color-mix(in oklab, var(--accent) 18%, transparent);color: #fff;font-weight:700}
+    .title{font-size:clamp(28px, 6vw, 44px);line-height:1.1;margin:14px 0}
+    .lead{color:var(--muted);font-size:1.1rem;margin-bottom:20px}
+    .card{
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:20px;
+      border:1px solid color-mix(in oklab, var(--muted) 20%, transparent);
+    }
+    .gradient-ring{position:absolute;inset:auto -20% -40% -20%;height:280px;background:var(--grad);filter: blur(60px);opacity:.35;pointer-events:none}
+
+    /* Auth cards */
+    .auth-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid color-mix(in oklab, var(--muted) 25%, transparent);background:var(--surface);color:var(--text);outline:none}
+    .input:focus{box-shadow:0 0 0 4px var(--ring)}
+    .muted{color:var(--muted);font-size:.95rem}
+    .link{color:var(--accent);text-decoration:none;font-weight:700}
+
+    /* Dashboard */
+    .dash{display:grid;grid-template-columns:240px 1fr;gap:20px}
+    .side{position:sticky;top:78px;height:calc(100vh - 96px);padding:14px;background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid color-mix(in oklab, var(--muted) 20%, transparent);}
+    .side .item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;cursor:pointer;font-weight:600}
+    .side .item.active, .side .item:hover{background: color-mix(in oklab, var(--accent) 12%, transparent); color:#fff}
+    .content{min-height:60vh}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+    .col-4{grid-column: span 4}
+    .col-8{grid-column: span 8}
+
+    /* Cards for dashboard */
+    .stat{padding:18px;background:var(--surface);border-radius:16px;box-shadow:var(--shadow);border:1px solid color-mix(in oklab, var(--muted) 20%, transparent)}
+    .stat h3{margin:6px 0 2px 0}
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{padding:8px 12px;border-radius:999px;background: color-mix(in oklab, var(--accent-2) 14%, transparent); color:#05343b; font-weight:700}
+
+    /* Footer */
+    footer{padding:28px 20px;color:var(--muted);border-top:1px solid color-mix(in oklab, var(--muted) 25%, transparent)}
+
+    /* Utilities */
+    .hidden{display:none !important}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero .container{grid-template-columns:1fr}
+      .auth-grid{grid-template-columns:1fr}
+      .dash{grid-template-columns:1fr}
+      .side{position:relative;top:0;height:auto}
+      .col-4, .col-8{grid-column:span 12}
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Nav -->
+  <header class="nav">
+    <div class="wrap">
+      <div class="brand" onclick="navigate('home')" style="cursor:pointer">
+        <div class="logo" aria-hidden="true"></div>
+        <span>CalmSetu</span>
+      </div>
+      <nav class="spacer" aria-label="Primary">
+        <a href="#" onclick="navigate('home')">Home</a>
+        <span style="opacity:.35;padding:0 8px">•</span>
+        <a href="#" onclick="navigate('about')">About</a>
+      </nav>
+      <button class="btn theme-toggle" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      <button class="btn btn-ghost" id="loginTop" onclick="navigate('login')">Login</button>
+      <button class="btn btn-primary" id="registerTop" onclick="navigate('register')">Register</button>
+      <button class="btn btn-primary hidden" id="dashTop" onclick="navigate('dashboard')">Dashboard</button>
+      <button class="btn btn-ghost hidden" id="logoutTop" onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <!-- Hero / Home -->
+  <section id="home">
+    <div class="hero">
+      <div class="container">
+        <div>
+          <span class="badge">✨ Youth Wellness • Prototype</span>
+          <h1 class="title">A gentle space to check in, breathe, and feel supported.</h1>
+          <p class="lead">This single‑file prototype demonstrates the CalmSetu UI: Landing → Auth → Dashboard with Profile & Settings. No backend yet; perfect for hackathon demos.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <button class="btn btn-primary" onclick="navigate('login')">Get Started</button>
+            <button class="btn btn-ghost" onclick="navigate('about')">Learn More</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">What’s inside</h3>
+          <ul>
+            <li>Responsive layout with **Landing, About, Login, Register**</li>
+            <li>Fake auth → switches to **Dashboard** (no server yet)</li>
+            <li>Dashboard with **Home, Profile, Settings** tabs</li>
+            <li>Dark mode toggle, clean cards, soft gradients</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gradient-ring" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="hidden">
+    <div class="container">
+      <div class="card">
+        <h2 style="margin-top:0">About CalmSetu</h2>
+        <p class="muted">CalmSetu is a Gen‑AI concept for youth mental wellness. This prototype focuses on UI/UX only. You can attach a Python backend (Flask/FastAPI) and SQL database later.</p>
+        <div class="chips" style="margin-top:10px">
+          <span class="chip">Privacy‑first</span>
+          <span class="chip">Short, emoji‑friendly chat</span>
+          <span class="chip">Personalized tips</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Login -->
+  <section id="login" class="hidden">
+    <div class="container auth-grid">
+      <div class="card">
+        <h2 style="margin-top:0">Welcome back</h2>
+        <form onsubmit="fakeLogin(event)">
+          <label class="muted" for="email">Email</label>
+          <input id="email" class="input" type="email" required placeholder="you@example.com" />
+          <div style="height:10px"></div>
+          <label class="muted" for="password">Password</label>
+          <input id="password" class="input" type="password" required placeholder="••••••••" />
+          <div style="height:16px"></div>
+          <button class="btn btn-primary" style="width:100%">Login</button>
+        </form>
+        <p class="muted" style="margin-top:12px">New here? <a class="link" href="#" onclick="navigate('register')">Create an account</a></p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Why sign in?</h3>
+        <ul>
+          <li>Save mood check‑ins & preferences</li>
+          <li>Access your dashboard anywhere</li>
+          <li>Sync across devices (future)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Register -->
+  <section id="register" class="hidden">
+    <div class="container">
+      <div class="card" style="max-width:620px;margin:auto">
+        <h2 style="margin-top:0">Create your account</h2>
+        <form onsubmit="fakeRegister(event)">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <label class="muted" for="name">Name</label>
+              <input id="name" class="input" required placeholder="Jahnvi" />
+            </div>
+            <div>
+              <label class="muted" for="regEmail">Email</label>
+              <input id="regEmail" class="input" type="email" required placeholder="you@example.com" />
+            </div>
+          </div>
+          <div style="height:10px"></div>
+          <label class="muted" for="regPassword">Password</label>
+          <input id="regPassword" class="input" type="password" required placeholder="Create a password" />
+          <div style="height:16px"></div>
+          <button class="btn btn-primary" style="width:100%">Register</button>
+        </form>
+        <p class="muted" style="margin-top:12px">Already have an account? <a class="link" href="#" onclick="navigate('login')">Login</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard -->
+  <section id="dashboard" class="hidden">
+    <div class="container dash">
+      <aside class="side">
+        <div class="item active" data-tab="home" onclick="openTab('home')">🏠 Home</div>
+        <div class="item" data-tab="profile" onclick="openTab('profile')">👤 Profile</div>
+        <div class="item" data-tab="settings" onclick="openTab('settings')">⚙️ Settings</div>
+        <hr style="border:none;border-top:1px solid color-mix(in oklab, var(--muted) 25%, transparent);margin:10px 0"/>
+        <div class="item" onclick="logout()">🚪 Logout</div>
+      </aside>
+
+      <main class="content">
+        <!-- Tab: Home -->
+        <div id="tab-home">
+          <h2 style="margin-top:0">Welcome, <span id="userName">Friend</span> 👋</h2>
+          <div class="grid">
+            <div class="col-8 stat">
+              <h3>Today’s check‑in</h3>
+              <p class="muted">How are you feeling right now?</p>
+              <div class="chips">
+                <button class="btn" onclick="setMood('😊 Happy')">😊 Happy</button>
+                <button class="btn" onclick="setMood('🙂 Okay')">🙂 Okay</button>
+                <button class="btn" onclick="setMood('😟 Anxious')">😟 Anxious</button>
+                <button class="btn" onclick="setMood('😩 Stressed')">😩 Stressed</button>
+              </div>
+              <p id="moodMsg" class="muted" style="margin-top:12px"></p>
+            </div>
+            <div class="col-4 stat">
+              <h3>Quick actions</h3>
+              <div class="chips">
+                <button class="btn" onclick="alert('Breathe in… breathe out… 🫁')">🫁 1‑min Breathing</button>
+                <button class="btn" onclick="alert('Write 3 things you’re grateful for ✍️')">✍️ Gratitude note</button>
+                <button class="btn" onclick="alert('Step away for 5 minutes ☕')">☕ Tiny break</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Profile -->
+        <div id="tab-profile" class="hidden">
+          <h2 style="margin-top:0">Profile</h2>
+          <div class="card">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div>
+                <label class="muted">Name</label>
+                <input id="profName" class="input" placeholder="Your name" />
+              </div>
+              <div>
+                <label class="muted">Email</label>
+                <input id="profEmail" class="input" placeholder="you@example.com" />
+              </div>
+            </div>
+            <div style="height:14px"></div>
+            <button class="btn btn-primary" onclick="saveProfile()">Save changes</button>
+            <span id="saveMsg" class="muted" style="margin-left:8px"></span>
+          </div>
+        </div>
+
+        <!-- Tab: Settings -->
+        <div id="tab-settings" class="hidden">
+          <h2 style="margin-top:0">Settings</h2>
+          <div class="card">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div>
+                <h3 style="margin:0">Theme</h3>
+                <p class="muted" style="margin:6px 0 0 0">Toggle light/dark mode</p>
+              </div>
+              <button class="btn theme-toggle" onclick="toggleTheme()">🌗 Toggle</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">© <span id="year"></span> CalmSetu • Prototype UI. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // Simple client-side router (show/hide sections)
+    const sections = ["home","about","login","register","dashboard"]; 
+    function navigate(id){
+      sections.forEach(s=>document.getElementById(s).classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+      // Header button visibility
+      const logged = !!localStorage.getItem('calm_user');
+      document.getElementById('loginTop').classList.toggle('hidden', logged);
+      document.getElementById('registerTop').classList.toggle('hidden', logged);
+      document.getElementById('dashTop').classList.toggle('hidden', !logged);
+      document.getElementById('logoutTop').classList.toggle('hidden', !logged);
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    // Fake auth (prototype only)
+    function fakeLogin(e){
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      localStorage.setItem('calm_user', JSON.stringify({name: email.split('@')[0], email}));
+      hydrateUser();
+      navigate('dashboard');
+    }
+    function fakeRegister(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim() || 'Friend';
+      const email = document.getElementById('regEmail').value;
+      localStorage.setItem('calm_user', JSON.stringify({name, email}));
+      hydrateUser();
+      navigate('dashboard');
+    }
+    function logout(){
+      localStorage.removeItem('calm_user');
+      navigate('home');
+    }
+
+    // Dashboard tabs
+    function openTab(which){
+      document.querySelectorAll('.side .item').forEach(i=>i.classList.remove('active'));
+      document.querySelector(`.side .item[data-tab="${which}"]`).classList.add('active');
+      ['home','profile','settings'].forEach(id=>document.getElementById('tab-'+id).classList.add('hidden'));
+      document.getElementById('tab-'+which).classList.remove('hidden');
+    }
+
+    // Mood quick set
+    function setMood(mood){
+      document.getElementById('moodMsg').textContent = `Saved mood: ${mood}. Nice job checking in 💙`;
+    }
+
+    // Profile save (local only)
+    function saveProfile(){
+      const user = JSON.parse(localStorage.getItem('calm_user')||'{}');
+      user.name = document.getElementById('profName').value || user.name;
+      user.email = document.getElementById('profEmail').value || user.email;
+      localStorage.setItem('calm_user', JSON.stringify(user));
+      document.getElementById('userName').textContent = user.name || 'Friend';
+      document.getElementById('saveMsg').textContent = 'Saved ✅';
+      setTimeout(()=>document.getElementById('saveMsg').textContent='', 1200);
+    }
+
+    // Theme
+    function toggleTheme(){
+      const d = document.documentElement;
+      const next = d.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      d.setAttribute('data-theme', next);
+      localStorage.setItem('calm_theme', next);
+    }
+
+    // Header theme button mirrors toggle
+    document.getElementById('themeBtn').addEventListener('click', toggleTheme);
+
+    // Hydrate user/theme on load
+    function hydrateUser(){
+      const u = JSON.parse(localStorage.getItem('calm_user')||'null');
+      if(u){
+        document.getElementById('userName').textContent = u.name || 'Friend';
+        document.getElementById('profName').value = u.name || '';
+        document.getElementById('profEmail').value = u.email || '';
+      }
+    }
+
+    (function init(){
+      document.getElementById('year').textContent = new Date().getFullYear();
+      const theme = localStorage.getItem('calm_theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+      hydrateUser();
+      navigate('home');
+    })();
+  </script>
+</body>
+</html>

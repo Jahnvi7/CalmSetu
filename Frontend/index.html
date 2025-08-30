@@ -3,36 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CalmSetu — Prototype UI</title>
+  <title>CalmSetu</title>
   <style>
     :root {
-      --bg: #f7f9fb;
-      --surface: #ffffff;
-      --text: #0f172a;
-      --muted: #64748b;
-      --accent: #6d28d9; /* violet */
-      --accent-2: #14b8a6; /* teal */
-      --ring: rgba(109, 40, 217, 0.35);
-      --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
-      --radius: 14px;
-      --grad: linear-gradient(120deg, var(--accent) 0%, #8b5cf6 35%, #22d3ee 70%, var(--accent-2) 100%);
-    }
-    [data-theme="dark"]{
       --bg: #0b1220;
       --surface: #0f172a;
       --text: #e5e7eb;
       --muted: #94a3b8;
       --shadow: 0 8px 24px rgba(0,0,0,0.45);
       --ring: rgba(34, 211, 238, 0.35);
+      --accent: #6d28d9;
+      --accent-2: #1495b8;
+      --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+      --radius: 14px;
+      --grad: linear-gradient(120deg, var(--accent) 0%, #8b5cf6 35%, #22d3ee 70%, var(--accent-2) 100%);
     }
-    *{box-sizing:border-box}
+    [data-theme="light"]{
+      --bg: #f7f9fb;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --accent: #6d28d9;
+      --accent-2: #14b8a6;
+      --ring: rgba(109, 40, 217, 0.35);
+      --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+      --radius: 14px;
+      --grad: linear-gradient(120deg, var(--accent) 0%, #8b5cf6 35%, #22d3ee 70%, var(--accent-2) 100%);
+    }
+    *{box-sizing:border-box;}
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans";
       background: var(--bg);
       color: var(--text);
       line-height:1.5;
     }
+
     /* Header */
     .nav{
       position:sticky; top:0; z-index:50;
@@ -40,62 +46,198 @@
       background: color-mix(in oklab, var(--bg) 80%, #ffffff 20%);
       border-bottom: 1px solid color-mix(in oklab, var(--muted) 25%, transparent);
     }
-    .nav .wrap{max-width:1100px;margin:auto;display:flex;align-items:center;gap:18px;padding:14px 20px}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.2px}
-    .logo{width:28px;height:28px;border-radius:8px;background:var(--grad); box-shadow: inset 0 0 0 2px rgba(255,255,255,.25)}
-    .spacer{flex:1}
-    .nav a{color:var(--text);text-decoration:none;font-weight:600;opacity:.9}
-    .nav a:hover{opacity:1}
-    .btn{appearance:none;border:none;border-radius:999px;padding:10px 16px;font-weight:700;cursor:pointer;transition:transform .06s ease, box-shadow .2s ease, opacity .2s;}
-    .btn-primary{background:var(--grad);color:#fff;box-shadow: var(--shadow)}
-    .btn-ghost{background:transparent;color:var(--text)}
-    .btn:active{transform:translateY(1px)}
-    .theme-toggle{border:1px solid color-mix(in oklab, var(--muted) 25%, transparent);background:var(--surface);}
+    .nav .wrap{
+      max-width:1100px;
+      margin:auto;
+      display:flex;
+      align-items:center;
+      gap:18px;
+      padding:14px 20px
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      cursor:pointer;
+    }
+    .logo {
+      width: 45px;
+      height: 45px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .spacer{flex:1;}
+    .nav a{
+      color:var(--text);
+      text-decoration:none;
+      font-weight:600;
+      opacity:.9;
+    }
+    .nav a:hover{opacity:1;}
+    .btn{
+      appearance:none;
+      border:none;
+      border-radius:999px;
+      padding:10px 16px;
+      font-weight:700;
+      cursor:pointer;
+      transition:transform .06s ease, box-shadow .2s ease, opacity .2s;
+    }
+    .btn-primary{
+      background:var(--grad);
+      color:#fff;
+      box-shadow: var(--shadow);
+    }
+    .btn-ghost{
+      background:transparent;
+      color:var(--text);
+    }
+    .btn:active{transform:translateY(1px);}
+    .theme-toggle{
+      border:1px solid color-mix(in oklab, var(--muted) 25%, transparent);
+      background:var(--surface);
+    }
 
     /* Sections */
-    section{padding:72px 20px}
-    .container{max-width:1100px;margin:auto}
+    section{padding:72px 0px}
+    .container{
+      max-width:1100px;
+      margin:auto
+    }
 
     /* Hero */
-    .hero{padding:96px 20px; position:relative; overflow:hidden}
-    .hero .container{display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center}
-    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background: color-mix(in oklab, var(--accent) 18%, transparent);color: #fff;font-weight:700}
-    .title{font-size:clamp(28px, 6vw, 44px);line-height:1.1;margin:14px 0}
-    .lead{color:var(--muted);font-size:1.1rem;margin-bottom:20px}
-    .card{
-      background: var(--surface);
+    .hero{
+      padding:70px 20px ;
+      position:relative;
+      overflow:hidden
+    }
+    .hero .container{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:40px;
+      align-items:center
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      background: color-mix(in oklab, var(--accent) 18%, transparent);color: #fff;
+      font-weight:700
+    }
+    .title{
+      font-size:clamp(28px, 6vw, 44px);
+      line-height:1.1;margin:14px 0
+    }
+    .lead{
+      color:var(--muted);
+      font-size:1.1rem;
+      margin-bottom:20px
+    }
+    .card {
+      background: var(--surface, #ffffff);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding:20px;
-      border:1px solid color-mix(in oklab, var(--muted) 20%, transparent);
+      padding: 28px;
+      border: 1px solid rgba(0,0,0,0.05);
     }
-    .gradient-ring{position:absolute;inset:auto -20% -40% -20%;height:280px;background:var(--grad);filter: blur(60px);opacity:.35;pointer-events:none}
+    .gradient-ring{
+      position:absolute;
+      inset:auto -20% -40% -20%;
+      height:280px;
+      background:var(--grad);
+      filter: blur(60px);
+      opacity:.35;
+      pointer-events:none
+    }
 
     /* Auth cards */
-    .auth-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    .input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid color-mix(in oklab, var(--muted) 25%, transparent);background:var(--surface);color:var(--text);outline:none}
+    .auth-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px
+    }
+    .input{
+      width:100%;
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid color-mix(in oklab, var(--muted) 25%, transparent);
+      background:var(--surface);color:var(--text);outline:none
+    }
     .input:focus{box-shadow:0 0 0 4px var(--ring)}
-    .muted{color:var(--muted);font-size:.95rem}
-    .link{color:var(--accent);text-decoration:none;font-weight:700}
+    .muted{
+      color:var(--muted);
+      font-size:.95rem
+    }
+    .link{
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:700
+    }
 
     /* Dashboard */
-    .dash{display:grid;grid-template-columns:240px 1fr;gap:20px}
-    .side{position:sticky;top:78px;height:calc(100vh - 96px);padding:14px;background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid color-mix(in oklab, var(--muted) 20%, transparent);}
-    .side .item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;cursor:pointer;font-weight:600}
-    .side .item.active, .side .item:hover{background: color-mix(in oklab, var(--accent) 12%, transparent); color:#fff}
+    .dash{
+      display:grid;
+      grid-template-columns:240px 1fr;
+      gap:20px
+    }
+    .side{
+      position:sticky;
+      top:78px;
+      height:calc(100vh - 96px);
+      padding:14px;
+      background:var(--surface);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      border:1px solid color-mix(in oklab, var(--muted) 20%, transparent);
+    }
+    .side .item{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:600
+    }
+    .side .item.active, .side .item:hover{
+      background: color-mix(in oklab, var(--accent) 12%, transparent);
+      color:#fff
+    }
     .content{min-height:60vh}
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
     .col-4{grid-column: span 4}
     .col-8{grid-column: span 8}
 
     /* Cards for dashboard */
-    .stat{padding:18px;background:var(--surface);border-radius:16px;box-shadow:var(--shadow);border:1px solid color-mix(in oklab, var(--muted) 20%, transparent)}
+    .stat{
+      padding:18px;
+      background:var(--surface);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      border:1px solid color-mix(in oklab, var(--muted) 20%, transparent)
+    }
     .stat h3{margin:6px 0 2px 0}
-    .chips{display:flex;flex-wrap:wrap;gap:8px}
-    .chip{padding:8px 12px;border-radius:999px;background: color-mix(in oklab, var(--accent-2) 14%, transparent); color:#05343b; font-weight:700}
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px
+    }
+    .chip{
+      padding:8px 12px;
+      border-radius:999px;
+      background: color-mix(in oklab, var(--accent-2) 14%, transparent);
+      font-weight:700
+    }
 
     /* Footer */
-    footer{padding:28px 20px;color:var(--muted);border-top:1px solid color-mix(in oklab, var(--muted) 25%, transparent)}
+    footer{
+      padding:28px 20px;
+      color:var(--muted);
+      border-top:1px solid color-mix(in oklab, var(--muted) 25%, transparent)
+    }
 
     /* Utilities */
     .hidden{display:none !important}
@@ -114,8 +256,8 @@
   <!-- Top Nav -->
   <header class="nav">
     <div class="wrap">
-      <div class="brand" onclick="navigate('home')" style="cursor:pointer">
-        <div class="logo" aria-hidden="true"></div>
+      <div class="brand" onclick="navigate('home')">
+        <img src="logo.png" alt="CalmSetu Logo" class="logo" />
         <span>CalmSetu</span>
       </div>
       <nav class="spacer" aria-label="Primary">
@@ -123,7 +265,7 @@
         <span style="opacity:.35;padding:0 8px">•</span>
         <a href="#" onclick="navigate('about')">About</a>
       </nav>
-      <button class="btn theme-toggle" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      <button class="btn theme-toggle" id="themeBtn" aria-label="Toggle theme">🌙</button>
       <button class="btn btn-ghost" id="loginTop" onclick="navigate('login')">Login</button>
       <button class="btn btn-primary" id="registerTop" onclick="navigate('register')">Register</button>
       <button class="btn btn-primary hidden" id="dashTop" onclick="navigate('dashboard')">Dashboard</button>
@@ -136,9 +278,10 @@
     <div class="hero">
       <div class="container">
         <div>
-          <span class="badge">✨ Youth Wellness • Prototype</span>
+          <span class="badge">✨ Youth Wellness</span>
           <h1 class="title">A gentle space to check in, breathe, and feel supported.</h1>
-          <p class="lead">This single‑file prototype demonstrates the CalmSetu UI: Landing → Auth → Dashboard with Profile & Settings. No backend yet; perfect for hackathon demos.</p>
+          <p class="lead">A friendly space powered by AI to help you reflect, relax, 
+            and grow—because your emotions deserve care, always.<br>😒->🙂->☺️</p>
           <div style="display:flex;gap:12px;flex-wrap:wrap">
             <button class="btn btn-primary" onclick="navigate('login')">Get Started</button>
             <button class="btn btn-ghost" onclick="navigate('about')">Learn More</button>
@@ -146,12 +289,10 @@
         </div>
         <div class="card">
           <h3 style="margin-top:0">What’s inside</h3>
-          <ul>
-            <li>Responsive layout with **Landing, About, Login, Register**</li>
-            <li>Fake auth → switches to **Dashboard** (no server yet)</li>
-            <li>Dashboard with **Home, Profile, Settings** tabs</li>
-            <li>Dark mode toggle, clean cards, soft gradients</li>
-          </ul>
+          <p>CalmSetu 🌸 is your youth-friendly space for mental wellness. In today’s busy world 
+          stress is common, but sharing feelings isn’t always easy. That’s where CalmSetu steps in—an AI-
+          powered buddy to check your mood 😊, share emotions, and get quick tips like motivation,
+          mindfulness 🧘, and calming exercises. Simple, warm, and stigma-free ❤️.</p>
         </div>
       </div>
       <div class="gradient-ring" aria-hidden="true"></div>
@@ -162,8 +303,14 @@
   <section id="about" class="hidden">
     <div class="container">
       <div class="card">
-        <h2 style="margin-top:0">About CalmSetu</h2>
-        <p class="muted">CalmSetu is a Gen‑AI concept for youth mental wellness. This prototype focuses on UI/UX only. You can attach a Python backend (Flask/FastAPI) and SQL database later.</p>
+        <h2 style="margin-top:0">About us</h2>
+        <p class="muted">We are a team of passionate students and tech enthusiasts who care deeply about mental
+          wellness. The idea for CalmSetu came from our own experiences and what we saw around us—friends, 
+          classmates, and young people silently struggling with stress but not knowing where to turn.
+          <br> So, we decided to create something different: a platform that blends technology + empathy. With 
+          CalmSetu, we’re not just building an app—we’re building a safe companion that listens, encourages, 
+          and grows with you. Our mission is simple: to make mental health support accessible, friendly, and 
+          judgment-free for everyone. 💙</p>
         <div class="chips" style="margin-top:10px">
           <span class="chip">Privacy‑first</span>
           <span class="chip">Short, emoji‑friendly chat</span>
@@ -307,93 +454,54 @@
   </footer>
 
   <script>
-    // Simple client-side router (show/hide sections)
-    const sections = ["home","about","login","register","dashboard"]; 
-    function navigate(id){
-      sections.forEach(s=>document.getElementById(s).classList.add('hidden'));
-      document.getElementById(id).classList.remove('hidden');
-      // Header button visibility
-      const logged = !!localStorage.getItem('calm_user');
-      document.getElementById('loginTop').classList.toggle('hidden', logged);
-      document.getElementById('registerTop').classList.toggle('hidden', logged);
-      document.getElementById('dashTop').classList.toggle('hidden', !logged);
-      document.getElementById('logoutTop').classList.toggle('hidden', !logged);
-      window.scrollTo({top:0,behavior:'smooth'});
-    }
-
-    // Fake auth (prototype only)
-    function fakeLogin(e){
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      localStorage.setItem('calm_user', JSON.stringify({name: email.split('@')[0], email}));
-      hydrateUser();
-      navigate('dashboard');
-    }
-    function fakeRegister(e){
-      e.preventDefault();
-      const name = document.getElementById('name').value.trim() || 'Friend';
-      const email = document.getElementById('regEmail').value;
-      localStorage.setItem('calm_user', JSON.stringify({name, email}));
-      hydrateUser();
-      navigate('dashboard');
-    }
-    function logout(){
-      localStorage.removeItem('calm_user');
-      navigate('home');
-    }
-
-    // Dashboard tabs
-    function openTab(which){
-      document.querySelectorAll('.side .item').forEach(i=>i.classList.remove('active'));
-      document.querySelector(`.side .item[data-tab="${which}"]`).classList.add('active');
-      ['home','profile','settings'].forEach(id=>document.getElementById('tab-'+id).classList.add('hidden'));
-      document.getElementById('tab-'+which).classList.remove('hidden');
-    }
-
-    // Mood quick set
-    function setMood(mood){
-      document.getElementById('moodMsg').textContent = `Saved mood: ${mood}. Nice job checking in 💙`;
-    }
-
-    // Profile save (local only)
-    function saveProfile(){
-      const user = JSON.parse(localStorage.getItem('calm_user')||'{}');
-      user.name = document.getElementById('profName').value || user.name;
-      user.email = document.getElementById('profEmail').value || user.email;
-      localStorage.setItem('calm_user', JSON.stringify(user));
-      document.getElementById('userName').textContent = user.name || 'Friend';
-      document.getElementById('saveMsg').textContent = 'Saved ✅';
-      setTimeout(()=>document.getElementById('saveMsg').textContent='', 1200);
-    }
-
-    // Theme
-    function toggleTheme(){
-      const d = document.documentElement;
-      const next = d.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      d.setAttribute('data-theme', next);
-      localStorage.setItem('calm_theme', next);
-    }
-
-    // Header theme button mirrors toggle
-    document.getElementById('themeBtn').addEventListener('click', toggleTheme);
-
-    // Hydrate user/theme on load
-    function hydrateUser(){
-      const u = JSON.parse(localStorage.getItem('calm_user')||'null');
-      if(u){
-        document.getElementById('userName').textContent = u.name || 'Friend';
-        document.getElementById('profName').value = u.name || '';
-        document.getElementById('profEmail').value = u.email || '';
+    const sections = ['home','about','login','register','dashboard'];
+    function navigate(sec){
+      sections.forEach(s => document.getElementById(s).classList.add('hidden'));
+      document.getElementById(sec).classList.remove('hidden');
+      if(sec==='dashboard'){
+        document.getElementById('loginTop').classList.add('hidden');
+        document.getElementById('registerTop').classList.add('hidden');
+        document.getElementById('dashTop').classList.remove('hidden');
+        document.getElementById('logoutTop').classList.remove('hidden');
+      } else {
+        document.getElementById('loginTop').classList.remove('hidden');
+        document.getElementById('registerTop').classList.remove('hidden');
+        document.getElementById('dashTop').classList.add('hidden');
+        document.getElementById('logoutTop').classList.add('hidden');
       }
     }
 
-    (function init(){
-      document.getElementById('year').textContent = new Date().getFullYear();
-      const theme = localStorage.getItem('calm_theme') || 'light';
-      document.documentElement.setAttribute('data-theme', theme);
-      hydrateUser();
-      navigate('home');
-    })();
+    // Theme toggle
+    function toggleTheme(){
+      document.documentElement.dataset.theme = document.documentElement.dataset.theme==='dark'?'light':'dark';
+    }
+    document.getElementById('themeBtn').onclick = toggleTheme;
+
+    // Fake login/register
+    function fakeLogin(e){e.preventDefault();document.getElementById('userName').textContent=document.getElementById('email').value.split('@')[0];navigate('dashboard');}
+    function fakeRegister(e){e.preventDefault();document.getElementById('userName').textContent=document.getElementById('name').value;navigate('dashboard');}
+
+    function logout(){navigate('home');document.getElementById('userName').textContent='Friend';}
+
+    // Dashboard tabs
+    function openTab(tab){
+      ['home','profile','settings'].forEach(t=>{
+        document.getElementById('tab-'+t).classList.add('hidden');
+        document.querySelector('.side .item[data-tab="'+t+'"]').classList.remove('active');
+      });
+      document.getElementById('tab-'+tab).classList.remove('hidden');
+      document.querySelector('.side .item[data-tab="'+tab+'"]').classList.add('active');
+    }
+
+    function setMood(mood){document.getElementById('moodMsg').textContent='Your mood: '+mood;}
+
+    function saveProfile(){
+      document.getElementById('saveMsg').textContent='Saved!';
+      setTimeout(()=>document.getElementById('saveMsg').textContent='',1500);
+    }
+
+    // Footer year
+    document.getElementById('year').textContent=new Date().getFullYear();
   </script>
 </body>
 </html>

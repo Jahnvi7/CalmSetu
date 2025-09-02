@@ -250,6 +250,76 @@
       .side{position:relative;top:0;height:auto}
       .col-4, .col-8{grid-column:span 12}
     }
+    .card.chatbot {
+      background: #1f2937;
+      border-radius: 16px;
+      padding: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      color: #f9fafb;
+      margin-top: 20px;
+    }
+    .chatbot-messages {
+      height: 250px;
+      overflow-y: auto;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #111827;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+    .chatbot-input {
+      display: flex;
+      gap: 10px;
+    }
+    .chatbot-input input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #374151;
+      background: #1f2937;
+      color: #f9fafb;
+    }
+    .chatbot-input button {
+      padding: 10px 14px;
+      border: none;
+      border-radius: 8px;
+      background: #6366f1;
+      color: white;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .chatbot-input button:hover {
+      background: #4f46e5;
+    }
+    .typing {
+      display: inline-block;
+      border-right: 2px solid white;
+      animation: blink 0.7s steps(1) infinite;
+    }
+    @keyframes blink {
+      from { border-color: transparent; }
+      to { border-color: white; }
+    }
+    .chatbot {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden; /* ensures video doesn't spill outside */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      margin-top: 20px;
+    }
+    .chatbot-bg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* ensures video covers box */
+      z-index: 0; /* stays behind */
+      border-radius: 16px;
+    }
+    .chatbot-messages,.chatbot-input {
+      position: relative;
+      z-index: 1; /* keeps content above video */
+    }
   </style>
 </head>
 <body>
@@ -257,7 +327,7 @@
   <header class="nav">
     <div class="wrap">
       <div class="brand" onclick="navigate('home')">
-        <img src="logo.png" alt="CalmSetu Logo" class="logo" />
+        <img src="logo_F.png" alt="CalmSetu Logo" class="logo" />
         <span>CalmSetu</span>
       </div>
       <nav class="spacer" aria-label="Primary">
@@ -391,14 +461,19 @@
           <h2 style="margin-top:0">Welcome, <span id="userName">Friend</span> 👋</h2>
           <div class="grid">
             <div class="col-8 stat">
-              <h3>Today’s check‑in</h3>
-              <p class="muted">How are you feeling right now?</p>
-              <div class="chips">
-                <button class="btn" onclick="setMood('😊 Happy')">😊 Happy</button>
-                <button class="btn" onclick="setMood('🙂 Okay')">🙂 Okay</button>
-                <button class="btn" onclick="setMood('😟 Anxious')">😟 Anxious</button>
-                <button class="btn" onclick="setMood('😩 Stressed')">😩 Stressed</button>
-              </div>
+              <!-- ChatBot Section -->
+                <div class="chatbot">
+                  <!-- Background video -->
+                  <video autoplay muted loop playsinline class="chatbot-bg">
+                    <source src="live_colors.mp4" type="video/mp4" />
+                  </video>
+                  <!-- Chat content -->
+                  <div id="chatbot-messages" class="chatbot-messages"></div>
+                    <div class="chatbot-input">
+                      <input type="text" id="user-input" placeholder="Type here..." />
+                      <button onclick="sendMessage()">✈️</button>
+                    </div>
+                  </div>
               <p id="moodMsg" class="muted" style="margin-top:12px"></p>
             </div>
             <div class="col-4 stat">
@@ -502,6 +577,50 @@
 
     // Footer year
     document.getElementById('year').textContent=new Date().getFullYear();
+
+    // Simple chatbot logic
+    function sendMessage() {
+      const input = document.getElementById("user-input");
+      const msg = input.value.trim();
+      if (!msg) return;
+      const chatBox = document.getElementById("chatbot-messages");
+
+      // Add user message
+      const userMsg = document.createElement("div");
+      userMsg.textContent = "You: " + msg;
+      chatBox.appendChild(userMsg);
+
+      input.value = "";
+
+      // Auto-scroll
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      // Fake AI response
+      setTimeout(() => {
+      const aiMsg = document.createElement("div");
+      aiMsg.textContent = "CalmSetu 🤖: " + getAIReply(msg);
+      aiMsg.style.color = "#22d3ee"; // teal color for AI replies
+      chatBox.appendChild(aiMsg);
+
+      chatBox.scrollTop = chatBox.scrollHeight;
+      }, 800);
+    }
+
+  // Very basic "AI"
+  function getAIReply(userInput) {
+    userInput = userInput.toLowerCase();
+    if (userInput.includes("sad") || userInput.includes("bad")) {
+      return "I hear you 💙. Try a deep breath? Inhale… exhale.";
+    } else if (userInput.includes("happy")) {
+      return "That’s awesome! 😄 Want to hear a quick joke?";
+    } else if (userInput.includes("joke")) {
+      return "Why don’t skeletons ever fight? Because they don’t have the guts! 💀😂";
+    } else if (userInput.includes("stress")) {
+      return "Stress can be heavy 😔. Maybe take a 1-min breathing break?";
+    } else {
+      return "Hmm… tell me more about how you feel 🌸";
+    }
+  }
   </script>
 </body>
 </html>

@@ -50,4 +50,4 @@ def customers():
 
 # ---- Run Flask App ----
 if __name__ == "__main__":
-    app.run("main:app", host="127.0.0.1", port=5500, reload=True)
+    app.run(host="127.0.0.1", port=5500, debug=True)

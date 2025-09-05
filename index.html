@@ -144,20 +144,23 @@
         <div id="tab-home">
           <h2 style="margin-top:0">Welcome, <span id="userName">Friend</span> 👋</h2>
           <div class="grid">
-            <div class="col-8 stat">
+            <div class="cb-col stat">
               <!-- ChatBot Section -->
-                <div class="chatbot">
-                  <!-- Background video -->
-                  <video autoplay muted loop playsinline class="chatbot-bg">
-                    <source src="live_colors.mp4" type="video/mp4" />
-                  </video>
+                <div class="card chatbot">
                   <!-- Chat content -->
-                  <div id="chatbot-messages" class="chatbot-messages"></div>
-                    <div class="chatbot-input">
-                      <input type="text" id="user-input" placeholder="Type here..." />
-                      <button onclick="sendMessage()">✈️</button>
-                    </div>
+                  <div id="chatbot-messages" class="chatbot-messages">
+                    <div class="message user">You: hii</div>
+                    <div class="message bot">Error: Could not connect to backend</div>
                   </div>
+                  <div class="chatbot-input">
+                    <input type="text" id="user-input" placeholder="Type here..." />
+                    <button onclick="sendMessage()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sent-icon">
+                      <line x1="22" y1="2" x2="11" y2="13"></line>
+                      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                    </button>
+                  </div>
+                </div>
               <p id="moodMsg" class="muted" style="margin-top:12px"></p>
             </div>
             <div class="col-4 stat">

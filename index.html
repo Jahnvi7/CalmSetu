@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CalmSetu</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Top Nav -->
+  <header class="nav">
+    <div class="wrap">
+      <div class="brand" onclick="navigate('home')">
+        <img src="logo_F.png" alt="CalmSetu Logo" class="logo" />
+        <span>CalmSetu</span>
+      </div>
+      <nav class="spacer" aria-label="Primary">
+        <a href="#" onclick="navigate('home')">Home</a>
+        <span style="opacity:.35;padding:0 8px">•</span>
+        <a href="#" onclick="navigate('about')">About</a>
+      </nav>
+      <button class="btn theme-toggle" id="themeBtn" aria-label="Toggle theme">🌙</button>
+      <button class="btn btn-ghost" id="loginTop" onclick="navigate('login')">Login</button>
+      <button class="btn btn-primary" id="registerTop" onclick="navigate('register')">Register</button>
+      <button class="btn btn-primary hidden" id="dashTop" onclick="navigate('dashboard')">Dashboard</button>
+      <button class="btn btn-ghost hidden" id="logoutTop" onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <!-- Hero / Home -->
+  <section id="home">
+    <div class="hero">
+      <div class="container">
+        <div>
+          <span class="badge">✨ Youth Wellness</span>
+          <h1 class="title">A gentle space to check in, breathe, and feel supported.</h1>
+          <p class="lead">A friendly space powered by AI to help you reflect, relax, 
+            and grow—because your emotions deserve care, always.<br>😒->🙂->☺️</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <button class="btn btn-primary" onclick="navigate('login')">Get Started</button>
+            <button class="btn btn-ghost" onclick="navigate('about')">Learn More</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">What’s inside</h3>
+          <p>CalmSetu 🌸 is your youth-friendly space for mental wellness. In today’s busy world 
+          stress is common, but sharing feelings isn’t always easy. That’s where CalmSetu steps in—an AI-
+          powered buddy to check your mood 😊, share emotions, and get quick tips like motivation,
+          mindfulness 🧘, and calming exercises. Simple, warm, and stigma-free ❤️.</p>
+        </div>
+      </div>
+      <div class="gradient-ring" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="hidden">
+    <div class="container">
+      <div class="card">
+        <h2 style="margin-top:0">About us</h2>
+        <p class="muted">We are a team of passionate students and tech enthusiasts who care deeply about mental
+          wellness. The idea for CalmSetu came from our own experiences and what we saw around us—friends, 
+          classmates, and young people silently struggling with stress but not knowing where to turn.
+          <br> So, we decided to create something different: a platform that blends technology + empathy. With 
+          CalmSetu, we’re not just building an app—we’re building a safe companion that listens, encourages, 
+          and grows with you. Our mission is simple: to make mental health support accessible, friendly, and 
+          judgment-free for everyone. 💙</p>
+        <div class="chips" style="margin-top:10px">
+          <span class="chip">Privacy‑first</span>
+          <span class="chip">Short, emoji‑friendly chat</span>
+          <span class="chip">Personalized tips</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Login -->
+  <section id="login" class="hidden">
+    <div class="container auth-grid">
+      <div class="card">
+        <h2 style="margin-top:0">Welcome back</h2>
+        <form onsubmit="fakeLogin(event)">
+          <label class="muted" for="email">Email</label>
+          <input id="email" class="input" type="email" required placeholder="you@example.com" />
+          <div style="height:10px"></div>
+          <label class="muted" for="password">Password</label>
+          <input id="password" class="input" type="password" required placeholder="••••••••" />
+          <div style="height:16px"></div>
+          <button class="btn btn-primary" style="width:100%">Login</button>
+        </form>
+        <p class="muted" style="margin-top:12px">New here? <a class="link" href="#" onclick="navigate('register')">Create an account</a></p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Why sign in?</h3>
+        <ul>
+          <li>Save mood check‑ins & preferences</li>
+          <li>Access your dashboard anywhere</li>
+          <li>Sync across devices (future)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Register -->
+  <section id="register" class="hidden">
+    <div class="container">
+      <div class="card" style="max-width:620px;margin:auto">
+        <h2 style="margin-top:0">Create your account</h2>
+        <form onsubmit="fakeRegister(event)">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <label class="muted" for="name">Name</label>
+              <input id="name" class="input" required placeholder="Jahnvi" />
+            </div>
+            <div>
+              <label class="muted" for="regEmail">Email</label>
+              <input id="regEmail" class="input" type="email" required placeholder="you@example.com" />
+            </div>
+          </div>
+          <div style="height:10px"></div>
+          <label class="muted" for="regPassword">Password</label>
+          <input id="regPassword" class="input" type="password" required placeholder="Create a password" />
+          <div style="height:16px"></div>
+          <button class="btn btn-primary" style="width:100%">Register</button>
+        </form>
+        <p class="muted" style="margin-top:12px">Already have an account? <a class="link" href="#" onclick="navigate('login')">Login</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard -->
+  <section id="dashboard" class="hidden">
+    <div class="container dash">
+      <aside class="side">
+        <div class="item active" data-tab="home" onclick="openTab('home')">🏠 Home</div>
+        <div class="item" data-tab="profile" onclick="openTab('profile')">👤 Profile</div>
+        <div class="item" data-tab="settings" onclick="openTab('settings')">⚙️ Settings</div>
+        <hr style="border:none;border-top:1px solid color-mix(in oklab, var(--muted) 25%, transparent);margin:10px 0"/>
+        <div class="item" onclick="logout()">🚪 Logout</div>
+      </aside>
+
+      <main class="content">
+        <!-- Tab: Home -->
+        <div id="tab-home">
+          <h2 style="margin-top:0">Welcome, <span id="userName">Friend</span> 👋</h2>
+          <div class="grid">
+            <div class="col-8 stat">
+              <!-- ChatBot Section -->
+                <div class="chatbot">
+                  <!-- Background video -->
+                  <video autoplay muted loop playsinline class="chatbot-bg">
+                    <source src="live_colors.mp4" type="video/mp4" />
+                  </video>
+                  <!-- Chat content -->
+                  <div id="chatbot-messages" class="chatbot-messages"></div>
+                    <div class="chatbot-input">
+                      <input type="text" id="user-input" placeholder="Type here..." />
+                      <button onclick="sendMessage()">✈️</button>
+                    </div>
+                  </div>
+              <p id="moodMsg" class="muted" style="margin-top:12px"></p>
+            </div>
+            <div class="col-4 stat">
+              <h3>Quick actions</h3>
+              <div class="chips">
+                <button class="btn" onclick="alert('Breathe in… breathe out… 🫁')">🫁 1‑min Breathing</button>
+                <button class="btn" onclick="alert('Write 3 things you’re grateful for ✍️')">✍️ Gratitude note</button>
+                <button class="btn" onclick="alert('Step away for 5 minutes ☕')">☕ Tiny break</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Profile -->
+        <div id="tab-profile" class="hidden">
+          <h2 style="margin-top:0">Profile</h2>
+          <div class="card">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div>
+                <label class="muted">Name</label>
+                <input id="profName" class="input" placeholder="Your name" />
+              </div>
+              <div>
+                <label class="muted">Email</label>
+                <input id="profEmail" class="input" placeholder="you@example.com" />
+              </div>
+            </div>
+            <div style="height:14px"></div>
+            <button class="btn btn-primary" onclick="saveProfile()">Save changes</button>
+            <span id="saveMsg" class="muted" style="margin-left:8px"></span>
+          </div>
+        </div>
+
+        <!-- Tab: Settings -->
+        <div id="tab-settings" class="hidden">
+          <h2 style="margin-top:0">Settings</h2>
+          <div class="card">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div>
+                <h3 style="margin:0">Theme</h3>
+                <p class="muted" style="margin:6px 0 0 0">Toggle light/dark mode</p>
+              </div>
+              <button class="btn theme-toggle" onclick="toggleTheme()">🌗 Toggle</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">© <span id="year"></span> CalmSetu • Prototype UI. All rights reserved.</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

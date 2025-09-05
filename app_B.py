@@ -1,77 +1,53 @@
-from flask import Flask, render_template, request, jsonify
-import os
+# app.py
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import google.generativeai as genai
+import sqlite3
 
-app = Flask(__name__, template_folder="../Frontend", static_folder="../Frontend")
+app = Flask(__name__)
+CORS(app) 
 
-# ------------------ FRONTEND ROUTE ------------------
+# 🔑 Set your Gemini API key
+genai.configure(api_key="AIzaSyCcql0DhPecLDiTaS3nFeZBJb8I85KYjuc")
 
-@app.route("/")
-def home():
-    return render_template("index.html")
+# Load the Gemini model
+model = genai.GenerativeModel("gemini-1.5-flash")
 
+# ---- Gemini Chat Endpoint ----
+@app.route("/chat", methods=["POST"])
+def chat():
+    try:
+        data = request.get_json()
+        user_message = data.get("message", "")
 
-# ------------------ API ROUTES ------------------
+        # Send message to Gemini
+        response = model.generate_content(user_message)
 
-# 1. Mood Check-in
-@app.route("/api/mood", methods=["POST"])
-def mood_checkin():
-    data = request.get_json()
-    mood = data.get("mood", "Neutral")
-    return jsonify({
-        "status": "ok",
-        "response": f"Mood received: {mood} 🙂",
-        "suggestion": suggest_activity(mood)
-    })
+        return jsonify({"reply": response.text})
 
-
-# 2. Likes/Dislikes Profiling
-@app.route("/api/likes", methods=["POST"])
-def likes_dislikes():
-    data = request.get_json()
-    likes = data.get("likes", [])
-    return jsonify({
-        "status": "ok",
-        "message": f"Got it! You like {', '.join(likes)} 🎶",
-        "coping_suggestion": generate_coping_suggestion(likes)
-    })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
-# 3. Stress Release Tracker
-@app.route("/api/session", methods=["POST"])
-def stress_session():
-    data = request.get_json()
-    duration = data.get("duration", 0)
-    return jsonify({
-        "status": "ok",
-        "message": f"Session tracked for {duration} minutes ⏱️",
-        "analytics": {"stress_before": 7, "stress_after": 4}
-    })
+# ---- SQLite Connection Helper ----
+DB_PATH = r"C:\Users\User\AppData\Roaming\DBeaverData\workspace6\.metadata\sample-database-sqlite-1\Chinook.db"   # replace with actual path
+
+def get_customers():
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Customer LIMIT 10;")
+    rows = cursor.fetchall()
+    conn.close()
+    return rows
 
 
-# ------------------ UTIL FUNCTIONS ------------------
-
-def suggest_activity(mood):
-    if mood == "Happy":
-        return "Keep smiling! Maybe share your joy with a friend 😊"
-    elif mood == "Stressed":
-        return "Take 3 deep breaths 🧘"
-    elif mood == "Anxious":
-        return "Try a quick 2-min grounding exercise 🌿"
-    else:
-        return "Stay calm and hydrated 💧"
-
-def generate_coping_suggestion(likes):
-    if "music" in likes:
-        return "Play a calming playlist 🎶"
-    elif "dance" in likes:
-        return "Move your body to your favorite beat 💃"
-    elif "writing" in likes:
-        return "Journal your thoughts for 5 min ✍️"
-    else:
-        return "Try mindfulness for 2 minutes 🧘"
+# ---- SQLite API Endpoint ----
+@app.route("/customers", methods=["GET"])
+def customers():
+    data = get_customers()
+    return jsonify(data)
 
 
-# ------------------ MAIN ------------------
-
+# ---- Run Flask App ----
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run("main:app", host="127.0.0.1", port=5500, reload=True)

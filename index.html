@@ -3,15 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CalmSetu</title>
+  <title>CalmSetu - AI-Powered Mental Wellness</title>
+  <meta name="description" content="CalmSetu - A gentle space powered by AI to help you reflect, relax, and grow. Your emotions deserve care, always." />
   <link rel="stylesheet" href="style.css">
+  <!-- Favicon fallback -->
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
 </head>
 <body>
   <!-- Top Nav -->
   <header class="nav">
     <div class="wrap">
       <div class="brand" onclick="navigate('home')">
-        <img src="logo_F.png" alt="CalmSetu Logo" class="logo" />
+        <!-- ✅ Fixed: Added fallback for missing logo -->
+          <img src="logo_F.png" alt="CalmSetu Logo" class="logo" />
         <span>CalmSetu</span>
       </div>
       <nav class="spacer" aria-label="Primary">
@@ -19,7 +23,7 @@
         <span style="opacity:.35;padding:0 8px">•</span>
         <a href="#" onclick="navigate('about')">About</a>
       </nav>
-      <button class="btn theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
+      <button class="btn theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
       <button class="btn btn-ghost" id="loginTop" onclick="navigate('login')">Login</button>
       <button class="btn btn-primary" id="registerTop" onclick="navigate('register')">Register</button>
       <button class="btn btn-primary hidden" id="dashTop" onclick="navigate('dashboard')">Dashboard</button>
@@ -35,16 +39,16 @@
           <span class="badge">✨ Youth Wellness</span>
           <h1 class="title">A gentle space to check in, breathe, and feel supported.</h1>
           <p class="lead">A friendly space powered by AI to help you reflect, relax, 
-            and grow—because your emotions deserve care, always.<br>😒→🙂→☺️</p>
+            and grow—because your emotions deserve care, always.<br>😔→🙂→☺️</p>
           <div style="display:flex;gap:12px;flex-wrap:wrap">
             <button class="btn btn-primary" onclick="navigate('login')">Get Started</button>
             <button class="btn btn-ghost" onclick="navigate('about')">Learn More</button>
           </div>
         </div>
         <div class="card">
-          <h3 style="margin-top:0">What’s inside</h3>
-          <p>CalmSetu 🌸 is your youth-friendly space for mental wellness. In today’s busy world, 
-          stress is common, but sharing feelings isn’t always easy. That’s where CalmSetu steps in—an AI-
+          <h3 style="margin-top:0">What's inside</h3>
+          <p>CalmSetu 🌸 is your youth-friendly space for mental wellness. In today's busy world, 
+          stress is common, but sharing feelings isn't always easy. That's where CalmSetu steps in—an AI-
           powered buddy to check your mood 😊, share emotions, and get quick tips like motivation,
           mindfulness 🧘, and calming exercises. Simple, warm, and stigma-free ❤️.</p>
         </div>
@@ -82,7 +86,7 @@
           <label class="muted" for="password">Password</label>
           <input id="password" class="input" type="password" required placeholder="••••••••" />
           <div style="height:16px"></div>
-          <button class="btn btn-primary" style="width:100%">Login</button>
+          <button class="btn btn-primary" style="width:100%" type="submit">Login</button>
         </form>
         <p class="muted" style="margin-top:12px">New here? <a class="link" href="#" onclick="navigate('register')">Create an account</a></p>
       </div>
@@ -117,7 +121,7 @@
           <label class="muted" for="regPassword">Password</label>
           <input id="regPassword" class="input" type="password" required placeholder="Create a password" />
           <div style="height:16px"></div>
-          <button class="btn btn-primary" style="width:100%">Register</button>
+          <button class="btn btn-primary" style="width:100%" type="submit">Register</button>
         </form>
         <p class="muted" style="margin-top:12px">Already have an account? <a class="link" href="#" onclick="navigate('login')">Login</a></p>
       </div>
@@ -140,31 +144,122 @@
         <div id="tab-home">
           <h2 style="margin-top:0">Welcome, <span id="userName">Friend</span> 👋</h2>
           <div class="grid">
+            <!-- ✨ ENHANCED: Chatbot Column with animated gradients -->
             <div class="cb-col stat">
-              <!-- ChatBot Section -->
               <div class="card chatbot">
                 <div id="chatbot-messages" class="chatbot-messages">
-                  <div class="message bot">Hii! How are you feeling now? 🌿</div>
+                  <div class="message bot">
+                    <span class="greeting-text">Hi there! ✨ How are you feeling today? I'm here to listen and support you. 🌿</span>
+                  </div>
                 </div>
                 <div class="chatbot-input">
-                  <input type="text" id="user-input" placeholder="Type here..." />
-                  <button id="send-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sent-icon">
+                  <input type="text" id="user-input" placeholder="Share how you're feeling... 💭" />
+                  <button id="send-btn" type="button" aria-label="Send message">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sent-icon">
                       <line x1="22" y1="2" x2="11" y2="13"></line>
                       <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                     </svg>
                   </button>
                 </div>
               </div>
-              <p id="moodMsg" class="muted" style="margin-top:12px"></p>
+              <p id="moodMsg" class="muted" style="margin-top:12px">
+                <span class="mood-indicator">🌟 Ready to chat whenever you are!</span>
+              </p>
             </div>
 
+            <!-- ✨ ENHANCED: Quick Actions with better styling -->
             <div class="col-4 stat">
-              <h3>Quick actions</h3>
-              <div class="chips">
-                <button class="btn" onclick="alert('Breathe in… breathe out… 🫁')">🫁 1‑min Breathing</button>
-                <button class="btn" onclick="alert('Write 3 things you’re grateful for ✍️')">✍️ Gratitude note</button>
-                <button class="btn" onclick="alert('Step away for 5 minutes ☕')">☕ Tiny break</button>
+              <h3>Quick wellness actions</h3>
+              <div class="chips quick-actions">
+                <button class="btn quick-btn breathing-btn" onclick="quickAction('breathing')">
+                  <span class="action-icon">🫁</span>
+                  <span>1‑min Breathing</span>
+                </button>
+                <button class="btn quick-btn gratitude-btn" onclick="quickAction('gratitude')">
+                  <span class="action-icon">✏️</span>
+                  <span>Gratitude note</span>
+                </button>
+                <button class="btn quick-btn break-btn" onclick="quickAction('break')">
+                  <span class="action-icon">☕</span>
+                  <span>Tiny break</span>
+                </button>
+                <button class="btn quick-btn mood-btn" onclick="quickAction('mood')">
+                  <span class="action-icon">😊</span>
+                  <span>Mood check</span>
+                </button>
+              </div>
+              
+              <!-- ✨ NEW: Wellness Tips Section -->
+              <div class="wellness-tips" style="margin-top:20px;">
+                <h4>💡 Today's tip</h4>
+                <div class="tip-card">
+                  <p id="daily-tip">Take 3 deep breaths before starting any stressful task. Your mind will thank you! 🌸</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ✨ NEW: Mood Tracker Section -->
+          <div class="mood-tracker" style="margin-top:30px;">
+            <div class="card">
+              <h3 style="margin-top:0">How's your week looking? 📊</h3>
+              <div class="mood-week">
+                <div class="mood-day" data-day="Mon">
+                  <span class="day-label">Mon</span>
+                  <div class="mood-selector">
+                    <button class="mood-emoji" onclick="setDayMood('Mon', '😊')">😊</button>
+                    <button class="mood-emoji" onclick="setDayMood('Mon', '😐')">😐</button>
+                    <button class="mood-emoji" onclick="setDayMood('Mon', '😔')">😔</button>
+                  </div>
+                </div>
+                <div class="mood-day" data-day="Tue">
+                  <span class="day-label">Tue</span>
+                  <div class="mood-selector">
+                    <button class="mood-emoji" onclick="setDayMood('Tue', '😊')">😊</button>
+                    <button class="mood-emoji" onclick="setDayMood('Tue', '😐')">😐</button>
+                    <button class="mood-emoji" onclick="setDayMood('Tue', '😔')">😔</button>
+                  </div>
+                </div>
+                <div class="mood-day" data-day="Wed">
+                  <span class="day-label">Wed</span>
+                  <div class="mood-selector">
+                    <button class="mood-emoji" onclick="setDayMood('Wed', '😊')">😊</button>
+                    <button class="mood-emoji" onclick="setDayMood('Wed', '😐')">😐</button>
+                    <button class="mood-emoji" onclick="setDayMood('Wed', '😔')">😔</button>
+                  </div>
+                </div>
+                <div class="mood-day" data-day="Thu">
+                  <span class="day-label">Thu</span>
+                  <div class="mood-selector">
+                    <button class="mood-emoji" onclick="setDayMood('Thu', '😊')">😊</button>
+                    <button class="mood-emoji" onclick="setDayMood('Thu', '😐')">😐</button>
+                    <button class="mood-emoji" onclick="setDayMood('Thu', '😔')">😔</button>
+                  </div>
+                </div>
+                <div class="mood-day" data-day="Fri">
+                  <span class="day-label">Fri</span>
+                  <div class="mood-selector">
+                    <button class="mood-emoji" onclick="setDayMood('Fri', '😊')">😊</button>
+                    <button class="mood-emoji" onclick="setDayMood('Fri', '😐')">😐</button>
+                    <button class="mood-emoji" onclick="setDayMood('Fri', '😔')">😔</button>
+                  </div>
+                </div>
+                <div class="mood-day" data-day="Sat">
+                  <span class="day-label">Sat</span>
+                  <div class="mood-selector">
+                    <button class="mood-emoji" onclick="setDayMood('Sat', '😊')">😊</button>
+                    <button class="mood-emoji" onclick="setDayMood('Sat', '😐')">😐</button>
+                    <button class="mood-emoji" onclick="setDayMood('Sat', '😔')">😔</button>
+                  </div>
+                </div>
+                <div class="mood-day" data-day="Sun">
+                  <span class="day-label">Sun</span>
+                  <div class="mood-selector">
+                    <button class="mood-emoji" onclick="setDayMood('Sun', '😊')">😊</button>
+                    <button class="mood-emoji" onclick="setDayMood('Sun', '😐')">😐</button>
+                    <button class="mood-emoji" onclick="setDayMood('Sun', '😔')">😔</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -172,16 +267,29 @@
 
         <!-- Tab: Profile -->
         <div id="tab-profile" class="hidden">
-          <h2 style="margin-top:0">Profile</h2>
+          <h2 style="margin-top:0">Your Profile ✨</h2>
           <div class="card">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
               <div>
-                <label class="muted">Name</label>
+                <label class="muted" for="profName">Name</label>
                 <input id="profName" class="input" placeholder="Your name" />
               </div>
               <div>
-                <label class="muted">Email</label>
+                <label class="muted" for="profEmail">Email</label>
                 <input id="profEmail" class="input" placeholder="you@example.com" />
+              </div>
+            </div>
+            <div style="height:14px"></div>
+            <h4>Wellness Preferences 🎯</h4>
+            <div style="margin-top:10px;">
+              <label class="muted">What helps you feel better?</label>
+              <div class="preference-tags" style="margin-top:8px;">
+                <button class="preference-tag" onclick="togglePreference(this)" data-pref="music">🎵 Music</button>
+                <button class="preference-tag" onclick="togglePreference(this)" data-pref="nature">🌿 Nature</button>
+                <button class="preference-tag" onclick="togglePreference(this)" data-pref="exercise">🏃 Exercise</button>
+                <button class="preference-tag" onclick="togglePreference(this)" data-pref="reading">📚 Reading</button>
+                <button class="preference-tag" onclick="togglePreference(this)" data-pref="meditation">🧘 Meditation</button>
+                <button class="preference-tag" onclick="togglePreference(this)" data-pref="friends">👥 Friends</button>
               </div>
             </div>
             <div style="height:14px"></div>
@@ -192,7 +300,7 @@
 
         <!-- Tab: Settings -->
         <div id="tab-settings" class="hidden">
-          <h2 style="margin-top:0">Settings</h2>
+          <h2 style="margin-top:0">Settings ⚙️</h2>
           <div class="card">
             <div style="display:flex;align-items:center;justify-content:space-between">
               <div>
@@ -202,16 +310,163 @@
               <button class="btn theme-toggle" onclick="toggleTheme()">🌗 Toggle</button>
             </div>
           </div>
+          
+          <div class="card" style="margin-top:20px;">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div>
+                <h3 style="margin:0">Notifications</h3>
+                <p class="muted" style="margin:6px 0 0 0">Daily wellness reminders</p>
+              </div>
+              <button class="btn btn-ghost" onclick="toggleNotifications()" id="notif-btn">🔔 Enable</button>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:20px;">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div>
+                <h3 style="margin:0">Chat History</h3>
+                <p class="muted" style="margin:6px 0 0 0">Clear your conversation history</p>
+              </div>
+              <button class="btn btn-ghost" onclick="clearChatHistory()" style="color:#ef4444;">🗑️ Clear</button>
+            </div>
+          </div>
         </div>
       </main>
     </div>
   </section>
 
   <footer>
-    <div class="container">© <span id="year"></span> CalmSetu • Prototype UI. All rights reserved.</div>
+    <div class="container">© <span id="year"></span> CalmSetu • Prototype for Google Gen AI Hackathon. All rights reserved.</div>
   </footer>
 
   <!-- Scripts -->
   <script src="script.js"></script>
+  
+  <!-- ✨ Enhanced: Quick Actions & New Features Script -->
+  <script>
+    // Enhanced quick actions
+    function quickAction(type) {
+      const messages = {
+        breathing: "🫁 Let's breathe together!\n\n1. Breathe in slowly for 4 seconds...\n2. Hold for 4 seconds...\n3. Breathe out slowly for 6 seconds...\n\nRepeat 3 times. You've got this! ✨",
+        gratitude: "✏️ Gratitude Practice\n\nWrite down 3 things you're grateful for today:\n\n1. _____\n2. _____\n3. _____\n\nGratitude rewires your brain for positivity! 💙",
+        break: "☕ Perfect time for a 5-minute break!\n\n• Stand up and stretch 🙆\n• Get some water 💧\n• Step outside if possible 🌿\n• Take 3 deep breaths\n\nYour mind will thank you! 🌟",
+        mood: "😊 How are you feeling right now?\n\nTake a moment to check in with yourself:\n• What emotions am I experiencing?\n• What does my body feel like?\n• What do I need right now?\n\nIt's okay to feel whatever you're feeling. 💙"
+      };
+      
+      // Create a nice modal instead of alert
+      showWellnessModal(messages[type] || "That's a wonderful choice for self-care! 🌸");
+    }
+
+    // Show wellness modal
+    function showWellnessModal(message) {
+      const modal = document.createElement('div');
+      modal.className = 'wellness-modal';
+      modal.innerHTML = `
+        <div class="modal-content">
+          <button class="modal-close" onclick="this.parentElement.parentElement.remove()">✕</button>
+          <div class="modal-text">${message.replace(/\n/g, '<br>')}</div>
+          <button class="btn btn-primary" onclick="this.parentElement.parentElement.remove()" style="margin-top:15px;">Got it! 🌟</button>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    // Daily tip rotation
+    const tips = [
+      "Take 3 deep breaths before starting any stressful task. Your mind will thank you! 🌸",
+      "Try the 5-4-3-2-1 grounding technique: 5 things you see, 4 you touch, 3 you hear, 2 you smell, 1 you taste. 🌿",
+      "Remember: it's okay to not be okay sometimes. You're human, and that's perfectly normal. 💙",
+      "Take a 2-minute walk, even if it's just around your room. Movement helps clear your mind! 🚶",
+      "Write down one thing you're proud of yourself for today, no matter how small. 📝✨",
+      "Drink a glass of water and take a moment to appreciate how it nourishes your body. 💧",
+      "Send a kind message to someone you care about. Spreading kindness helps you feel better too! 💕"
+    ];
+
+    // Rotate daily tip
+    function rotateTip() {
+      const tipElement = document.getElementById('daily-tip');
+      if (tipElement) {
+        const randomTip = tips[Math.floor(Math.random() * tips.length)];
+        tipElement.textContent = randomTip;
+      }
+    }
+
+    // Set day mood
+    function setDayMood(day, mood) {
+      const dayElement = document.querySelector(`[data-day="${day}"]`);
+      const moodEmojis = dayElement.querySelectorAll('.mood-emoji');
+      
+      // Clear previous selections
+      moodEmojis.forEach(emoji => emoji.classList.remove('selected'));
+      
+      // Set new selection
+      const selectedEmoji = dayElement.querySelector(`[onclick*="${mood}"]`);
+      if (selectedEmoji) {
+        selectedEmoji.classList.add('selected');
+      }
+      
+      // Update mood message
+      const moodMsg = document.getElementById('moodMsg');
+      if (moodMsg) {
+        moodMsg.innerHTML = `<span class="mood-indicator">📊 ${day}: ${mood} - Thanks for tracking your mood!</span>`;
+      }
+    }
+
+    // Toggle preference tags
+    function togglePreference(button) {
+      button.classList.toggle('active');
+    }
+
+    // Toggle notifications
+    function toggleNotifications() {
+      const btn = document.getElementById('notif-btn');
+      if (btn.textContent.includes('Enable')) {
+        btn.textContent = '🔕 Disable';
+        btn.classList.remove('btn-ghost');
+        btn.classList.add('btn-primary');
+        showNotification('Daily wellness reminders enabled! 🔔');
+      } else {
+        btn.textContent = '🔔 Enable';
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-ghost');
+        showNotification('Notifications disabled 🔕');
+      }
+    }
+
+    // Clear chat history
+    function clearChatHistory() {
+      if (confirm('Are you sure you want to clear your chat history? This cannot be undone.')) {
+        const chatMessages = document.getElementById('chatbot-messages');
+        if (chatMessages) {
+          chatMessages.innerHTML = '<div class="message bot"><span class="greeting-text">Hi there! ✨ Your chat history has been cleared. How are you feeling today? 🌿</span></div>';
+        }
+        showNotification('Chat history cleared 🗑️');
+      }
+    }
+
+    // Show notification
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.className = 'notification';
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 100);
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+      }, 3000);
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      rotateTip();
+      // Rotate tip every 30 seconds
+      setInterval(rotateTip, 30000);
+    });
+  </script>
 </body>
 </html>

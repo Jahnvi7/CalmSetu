@@ -60,50 +60,26 @@ function saveProfile(){
 // Footer year
 document.getElementById('year').textContent=new Date().getFullYear();
 
-// ✅ Chatbot logic
+
+// ==============================
+// ✅ Chatbot logic (fixed bubbles)
+// ==============================
 async function sendMessage() {
-  const input = document.getElementById("user-input");
+  const input = document.getElementById("chatInput");
   const msg = input.value.trim();
   if (!msg) return;
-  const chatBox = document.getElementById("chatbot-messages");
+  const chatBox = document.getElementById("chatbotMessages");
 
-  // User message
-  // User message (just text, no permanent SVG)
+  // Add user message bubble
   const userMsg = document.createElement("div");
-  userMsg.classList.add("user-msg");
+  userMsg.classList.add("message", "user");
   userMsg.textContent = msg;
   chatBox.appendChild(userMsg);
   input.value = "";
 
-  // Create flying sent icon
-  const sentIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  sentIcon.setAttribute("viewBox", "0 0 24 24");
-  sentIcon.setAttribute("fill", "none");
-  sentIcon.setAttribute("stroke", "#4CAF50");
-  sentIcon.setAttribute("stroke-width", "2");
-  sentIcon.setAttribute("stroke-linecap", "round");
-  sentIcon.setAttribute("stroke-linejoin", "round");
-  sentIcon.classList.add("sent-icon", "animate"); // add animate class
-  
-  sentIcon.innerHTML = `
-    <line x1="22" y1="2" x2="11" y2="13"></line>
-    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-  `;
-  
-  // Position the icon over the chatbox temporarily
-  sentIcon.style.position = "absolute";
-  sentIcon.style.top = (chatBox.getBoundingClientRect().top + 10) + "px";
-  sentIcon.style.left = (chatBox.getBoundingClientRect().left + 10) + "px";
-  sentIcon.style.width = "24px";
-  sentIcon.style.height = "24px";
-  sentIcon.style.zIndex = "1000";
-  document.body.appendChild(sentIcon);
-
-  // Remove icon after animation
-  sentIcon.addEventListener("animationend", () => sentIcon.remove());
-
   // Typing indicator
   const typing = document.createElement("div");
+  typing.classList.add("message", "bot");
   typing.textContent = "CalmSetu is typing...";
   typing.id = "typing";
   chatBox.appendChild(typing);
@@ -116,16 +92,29 @@ async function sendMessage() {
       body: JSON.stringify({ message: msg }),
     });
     const data = await response.json();
+
     typing.remove();
     const aiMsg = document.createElement("div");
-    aiMsg.textContent = "CalmSetu 🤖: " + data.reply;
+    aiMsg.classList.add("message", "bot");
+    aiMsg.textContent = data.reply;
     chatBox.appendChild(aiMsg);
   } catch (error) {
     typing.remove();
     const errMsg = document.createElement("div");
+    errMsg.classList.add("message", "bot");
     errMsg.textContent = "⚠️ Error: Could not connect to backend";
     chatBox.appendChild(errMsg);
   }
 
   chatBox.scrollTop = chatBox.scrollHeight;
 }
+
+// Send on button click
+document.getElementById("sendBtn").addEventListener("click", sendMessage);
+
+// Send on Enter key
+document.getElementById("chatInput").addEventListener("keypress", function(e){
+  if (e.key === "Enter") {
+    sendMessage();
+  }
+});

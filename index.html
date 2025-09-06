@@ -19,7 +19,7 @@
         <span style="opacity:.35;padding:0 8px">•</span>
         <a href="#" onclick="navigate('about')">About</a>
       </nav>
-      <button class="btn theme-toggle" id="themeBtn" aria-label="Toggle theme">🌙</button>
+      <button class="btn theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
       <button class="btn btn-ghost" id="loginTop" onclick="navigate('login')">Login</button>
       <button class="btn btn-primary" id="registerTop" onclick="navigate('register')">Register</button>
       <button class="btn btn-primary hidden" id="dashTop" onclick="navigate('dashboard')">Dashboard</button>
@@ -35,7 +35,7 @@
           <span class="badge">✨ Youth Wellness</span>
           <h1 class="title">A gentle space to check in, breathe, and feel supported.</h1>
           <p class="lead">A friendly space powered by AI to help you reflect, relax, 
-            and grow—because your emotions deserve care, always.<br>😒->🙂->☺️</p>
+            and grow—because your emotions deserve care, always.<br>😒→🙂→☺️</p>
           <div style="display:flex;gap:12px;flex-wrap:wrap">
             <button class="btn btn-primary" onclick="navigate('login')">Get Started</button>
             <button class="btn btn-ghost" onclick="navigate('about')">Learn More</button>
@@ -43,7 +43,7 @@
         </div>
         <div class="card">
           <h3 style="margin-top:0">What’s inside</h3>
-          <p>CalmSetu 🌸 is your youth-friendly space for mental wellness. In today’s busy world 
+          <p>CalmSetu 🌸 is your youth-friendly space for mental wellness. In today’s busy world, 
           stress is common, but sharing feelings isn’t always easy. That’s where CalmSetu steps in—an AI-
           powered buddy to check your mood 😊, share emotions, and get quick tips like motivation,
           mindfulness 🧘, and calming exercises. Simple, warm, and stigma-free ❤️.</p>
@@ -58,16 +58,12 @@
     <div class="container">
       <div class="card">
         <h2 style="margin-top:0">About us</h2>
-        <p class="muted">We are a team of passionate students and tech enthusiasts who care deeply about mental
-          wellness. The idea for CalmSetu came from our own experiences and what we saw around us—friends, 
-          classmates, and young people silently struggling with stress but not knowing where to turn.
-          <br> So, we decided to create something different: a platform that blends technology + empathy. With 
-          CalmSetu, we’re not just building an app—we’re building a safe companion that listens, encourages, 
-          and grows with you. Our mission is simple: to make mental health support accessible, friendly, and 
-          judgment-free for everyone. 💙</p>
+        <p class="muted">We are passionate students and tech enthusiasts who care deeply about mental
+          wellness. CalmSetu blends technology + empathy to create a safe companion that listens, encourages, 
+          and grows with you. Our mission: make mental health support accessible, friendly, and judgment-free 💙.</p>
         <div class="chips" style="margin-top:10px">
           <span class="chip">Privacy‑first</span>
-          <span class="chip">Short, emoji‑friendly chat</span>
+          <span class="chip">Emoji-friendly chat</span>
           <span class="chip">Personalized tips</span>
         </div>
       </div>
@@ -146,23 +142,23 @@
           <div class="grid">
             <div class="cb-col stat">
               <!-- ChatBot Section -->
-                <div class="card chatbot">
-                  <!-- Chat content -->
-                  <div id="chatbot-messages" class="chatbot-messages">
-                    <div class="message user">You: hii</div>
-                    <div class="message bot">Error: Could not connect to backend</div>
-                  </div>
-                  <div class="chatbot-input">
-                    <input type="text" id="user-input" placeholder="Type here..." />
-                    <button onclick="sendMessage()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sent-icon">
+              <div class="card chatbot">
+                <div id="chatbot-messages" class="chatbot-messages">
+                  <div class="message bot">Hii! How are you feeling now? 🌿</div>
+                </div>
+                <div class="chatbot-input">
+                  <input type="text" id="user-input" placeholder="Type here..." />
+                  <button id="send-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sent-icon">
                       <line x1="22" y1="2" x2="11" y2="13"></line>
                       <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                     </svg>
-                    </button>
-                  </div>
+                  </button>
                 </div>
+              </div>
               <p id="moodMsg" class="muted" style="margin-top:12px"></p>
             </div>
+
             <div class="col-4 stat">
               <h3>Quick actions</h3>
               <div class="chips">
@@ -215,6 +211,7 @@
     <div class="container">© <span id="year"></span> CalmSetu • Prototype UI. All rights reserved.</div>
   </footer>
 
+  <!-- Scripts -->
   <script src="script.js"></script>
 </body>
 </html>

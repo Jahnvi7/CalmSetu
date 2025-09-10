@@ -4,17 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CalmSetu - AI-Powered Mental Wellness</title>
-  <meta name="description" content="CalmSetu - A gentle space powered by AI to help you reflect, relax, and grow. Your emotions deserve care, always." />
+  <meta name="description" content="CalmSetu - A gentle space powered by AI to help you reflect, relax, and grow. Your 
+  emotions deserve care, always." />
   <link rel="stylesheet" href="style.css">
   <!-- Favicon fallback -->
-  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+    <text y='.9em' font-size='90'>🌿</text></svg>" />
 </head>
 <body>
   <!-- Top Nav -->
   <header class="nav">
     <div class="wrap">
       <div class="brand" onclick="navigate('home')">
-        <!-- ✅ Fixed: Added fallback for missing logo -->
           <img src="logo_F.png" alt="CalmSetu Logo" class="logo" />
         <span>CalmSetu</span>
       </div>
@@ -188,82 +189,6 @@
                   <span>Mood check</span>
                 </button>
               </div>
-              
-              <!-- ✨ NEW: Wellness Tips Section -->
-              <div class="wellness-tips" style="margin-top:20px;">
-                <h4>💡 Today's tip</h4>
-                <div class="tip-card">
-                  <p id="daily-tip">Take 3 deep breaths before starting any stressful task. Your mind will thank you! 🌸</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ✨ NEW: Mood Tracker Section -->
-          <div class="mood-tracker" style="margin-top:30px;">
-            <div class="card">
-              <h3 style="margin-top:0">How's your week looking? 📊</h3>
-              <div class="mood-week">
-                <div class="mood-day" data-day="Mon">
-                  <span class="day-label">Mon</span>
-                  <div class="mood-selector">
-                    <button class="mood-emoji" onclick="setDayMood('Mon', '😊')">😊</button>
-                    <button class="mood-emoji" onclick="setDayMood('Mon', '😐')">😐</button>
-                    <button class="mood-emoji" onclick="setDayMood('Mon', '😔')">😔</button>
-                  </div>
-                </div>
-                <div class="mood-day" data-day="Tue">
-                  <span class="day-label">Tue</span>
-                  <div class="mood-selector">
-                    <button class="mood-emoji" onclick="setDayMood('Tue', '😊')">😊</button>
-                    <button class="mood-emoji" onclick="setDayMood('Tue', '😐')">😐</button>
-                    <button class="mood-emoji" onclick="setDayMood('Tue', '😔')">😔</button>
-                  </div>
-                </div>
-                <div class="mood-day" data-day="Wed">
-                  <span class="day-label">Wed</span>
-                  <div class="mood-selector">
-                    <button class="mood-emoji" onclick="setDayMood('Wed', '😊')">😊</button>
-                    <button class="mood-emoji" onclick="setDayMood('Wed', '😐')">😐</button>
-                    <button class="mood-emoji" onclick="setDayMood('Wed', '😔')">😔</button>
-                  </div>
-                </div>
-                <div class="mood-day" data-day="Thu">
-                  <span class="day-label">Thu</span>
-                  <div class="mood-selector">
-                    <button class="mood-emoji" onclick="setDayMood('Thu', '😊')">😊</button>
-                    <button class="mood-emoji" onclick="setDayMood('Thu', '😐')">😐</button>
-                    <button class="mood-emoji" onclick="setDayMood('Thu', '😔')">😔</button>
-                  </div>
-                </div>
-                <div class="mood-day" data-day="Fri">
-                  <span class="day-label">Fri</span>
-                  <div class="mood-selector">
-                    <button class="mood-emoji" onclick="setDayMood('Fri', '😊')">😊</button>
-                    <button class="mood-emoji" onclick="setDayMood('Fri', '😐')">😐</button>
-                    <button class="mood-emoji" onclick="setDayMood('Fri', '😔')">😔</button>
-                  </div>
-                </div>
-                <div class="mood-day" data-day="Sat">
-                  <span class="day-label">Sat</span>
-                  <div class="mood-selector">
-                    <button class="mood-emoji" onclick="setDayMood('Sat', '😊')">😊</button>
-                    <button class="mood-emoji" onclick="setDayMood('Sat', '😐')">😐</button>
-                    <button class="mood-emoji" onclick="setDayMood('Sat', '😔')">😔</button>
-                  </div>
-                </div>
-                <div class="mood-day" data-day="Sun">
-                  <span class="day-label">Sun</span>
-                  <div class="mood-selector">
-                    <button class="mood-emoji" onclick="setDayMood('Sun', '😊')">😊</button>
-                    <button class="mood-emoji" onclick="setDayMood('Sun', '😐')">😐</button>
-                    <button class="mood-emoji" onclick="setDayMood('Sun', '😔')">😔</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <!-- Tab: Profile -->
         <div id="tab-profile" class="hidden">

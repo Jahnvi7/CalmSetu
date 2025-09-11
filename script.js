@@ -42,15 +42,18 @@ function logout(){
   document.getElementById('userName').textContent='Friend';
 }
 
-// Dashboard tabs
+// Dashboard tabs - UPDATED to include analytics
 function openTab(tab){
-  ['home','profile','settings'].forEach(t=>{
+  ['home','profile','analytics','settings'].forEach(t=>{
     document.getElementById('tab-'+t).classList.add('hidden');
-    document.querySelector('.side .item[data-tab="'+t+'"]').classList.remove('active');
+    const tabElement = document.querySelector('.side .item[data-tab="'+t+'"]');
+    if(tabElement) tabElement.classList.remove('active');
   });
   document.getElementById('tab-'+tab).classList.remove('hidden');
-  document.querySelector('.side .item[data-tab="'+tab+'"]').classList.add('active');
+  const activeTabElement = document.querySelector('.side .item[data-tab="'+tab+'"]');
+  if(activeTabElement) activeTabElement.classList.add('active');
 }
+
 function setMood(mood){
   document.getElementById('moodMsg').textContent='Your mood: '+mood;
 }
@@ -254,4 +257,207 @@ document.addEventListener('DOMContentLoaded', function() {
       chatBox.appendChild(welcomeMsg);
     }
   }, 500);
+});
+
+// ==============================
+// ✨ ENHANCED QUICK ACTIONS & NEW FEATURES
+// ==============================
+
+// Enhanced quick actions
+function quickAction(type) {
+  const messages = {
+    breathing: "🫁 Let's breathe together!\n\n1. Breathe in slowly for 4 seconds...\n2. Hold for 4 seconds...\n3. Breathe out slowly for 6 seconds...\n\nRepeat 3 times. You've got this! ✨",
+    gratitude: "✏️ Gratitude Practice\n\nWrite down 3 things you're grateful for today:\n\n1. _____\n2. _____\n3. _____\n\nGratitude rewires your brain for positivity! 💙",
+    break: "☕ Perfect time for a 5-minute break!\n\n• Stand up and stretch 🙆\n• Get some water 💧\n• Step outside if possible 🌿\n• Take 3 deep breaths\n\nYour mind will thank you! 🌟",
+    mood: "😊 How are you feeling right now?\n\nTake a moment to check in with yourself:\n• What emotions am I experiencing?\n• What does my body feel like?\n• What do I need right now?\n\nIt's okay to feel whatever you're feeling. 💙"
+  };
+  
+  // Create a nice modal instead of alert
+  showWellnessModal(messages[type] || "That's a wonderful choice for self-care! 🌸");
+}
+
+// Show wellness modal
+function showWellnessModal(message) {
+  const modal = document.createElement('div');
+  modal.className = 'wellness-modal';
+  modal.innerHTML = `
+    <div class="modal-content">
+      <button class="modal-close" onclick="this.parentElement.parentElement.remove()">✕</button>
+      <div class="modal-text">${message.replace(/\n/g, '<br>')}</div>
+      <button class="btn btn-primary" onclick="this.parentElement.parentElement.remove()" style="margin-top:15px;">Got it! 🌟</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+// ==============================
+// ✨ NEW ANALYTICS FUNCTIONS
+// ==============================
+
+// Set new wellness goals
+function setNewGoals() {
+  showWellnessModal("🎯 Goal Setting\n\nWhat wellness goals would you like to set for this week?\n\n• Daily mood check-ins\n• Mindfulness minutes\n• Gratitude journaling\n• Breathing exercises\n\nYou can customize these in your profile settings!");
+}
+
+// Update analytics numbers (simulate real data)
+function updateAnalytics() {
+  const analytics = {
+    totalChats: Math.floor(Math.random() * 50) + 20,
+    streakDays: Math.floor(Math.random() * 14) + 1,
+    wellnessScore: (Math.random() * 2 + 8).toFixed(1),
+    mindfulMinutes: Math.floor(Math.random() * 100) + 50
+  };
+
+  // Update DOM elements if they exist
+  const totalChatsEl = document.getElementById('total-chats');
+  const streakDaysEl = document.getElementById('streak-days');
+  const wellnessScoreEl = document.getElementById('wellness-score');
+  const mindfulMinutesEl = document.getElementById('mindful-minutes');
+
+  if (totalChatsEl) totalChatsEl.textContent = analytics.totalChats;
+  if (streakDaysEl) streakDaysEl.textContent = analytics.streakDays;
+  if (wellnessScoreEl) wellnessScoreEl.textContent = analytics.wellnessScore;
+  if (mindfulMinutesEl) mindfulMinutesEl.textContent = analytics.mindfulMinutes;
+}
+
+// Animate mood bars on analytics tab
+function animateMoodBars() {
+  const moodBars = document.querySelectorAll('.mood-bar');
+  moodBars.forEach((bar, index) => {
+    setTimeout(() => {
+      bar.style.transform = 'scaleY(0)';
+      setTimeout(() => {
+        bar.style.transform = 'scaleY(1)';
+        bar.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+      }, 100);
+    }, index * 100);
+  });
+}
+
+// ==============================
+// DAILY TIP ROTATION & UTILITIES
+// ==============================
+
+// Daily tip rotation
+const tips = [
+  "Take 3 deep breaths before starting any stressful task. Your mind will thank you! 🌸",
+  "Try the 5-4-3-2-1 grounding technique: 5 things you see, 4 you touch, 3 you hear, 2 you smell, 1 you taste. 🌿",
+  "Remember: it's okay to not be okay sometimes. You're human, and that's perfectly normal. 💙",
+  "Take a 2-minute walk, even if it's just around your room. Movement helps clear your mind! 🚶",
+  "Write down one thing you're proud of yourself for today, no matter how small. 📝✨",
+  "Drink a glass of water and take a moment to appreciate how it nourishes your body. 💧",
+  "Send a kind message to someone you care about. Spreading kindness helps you feel better too! 💕"
+];
+
+// Rotate daily tip
+function rotateTip() {
+  const tipElement = document.getElementById('daily-tip');
+  if (tipElement) {
+    const randomTip = tips[Math.floor(Math.random() * tips.length)];
+    tipElement.textContent = randomTip;
+  }
+}
+
+// Set day mood
+function setDayMood(day, mood) {
+  const dayElement = document.querySelector(`[data-day="${day}"]`);
+  if (!dayElement) return;
+  
+  const moodEmojis = dayElement.querySelectorAll('.mood-emoji');
+  
+  // Clear previous selections
+  moodEmojis.forEach(emoji => emoji.classList.remove('selected'));
+  
+  // Set new selection
+  const selectedEmoji = dayElement.querySelector(`[onclick*="${mood}"]`);
+  if (selectedEmoji) {
+    selectedEmoji.classList.add('selected');
+  }
+  
+  // Update mood message
+  const moodMsg = document.getElementById('moodMsg');
+  if (moodMsg) {
+    moodMsg.innerHTML = `<span class="mood-indicator">📊 ${day}: ${mood} - Thanks for tracking your mood!</span>`;
+  }
+}
+
+// Toggle preference tags
+function togglePreference(button) {
+  button.classList.toggle('active');
+}
+
+// Toggle notifications
+function toggleNotifications() {
+  const btn = document.getElementById('notif-btn');
+  if (!btn) return;
+  
+  if (btn.textContent.includes('Enable')) {
+    btn.textContent = '🔕 Disable';
+    btn.classList.remove('btn-ghost');
+    btn.classList.add('btn-primary');
+    showNotification('Daily wellness reminders enabled! 🔔');
+  } else {
+    btn.textContent = '🔔 Enable';
+    btn.classList.remove('btn-primary');
+    btn.classList.add('btn-ghost');
+    showNotification('Notifications disabled 🔕');
+  }
+}
+
+// Clear chat history
+function clearChatHistory() {
+  if (confirm('Are you sure you want to clear your chat history? This cannot be undone.')) {
+    const chatMessages = document.getElementById('chatbot-messages');
+    if (chatMessages) {
+      chatMessages.innerHTML = '<div class="message bot"><span class="greeting-text">Hi there! ✨ Your chat history has been cleared. How are you feeling today? 🌿</span></div>';
+    }
+    showNotification('Chat history cleared 🗑️');
+  }
+}
+
+// Show notification
+function showNotification(message) {
+  const notification = document.createElement('div');
+  notification.className = 'notification';
+  notification.textContent = message;
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.classList.add('show');
+  }, 100);
+  
+  setTimeout(() => {
+    notification.classList.remove('show');
+    setTimeout(() => notification.remove(), 300);
+  }, 3000);
+}
+
+// ==============================
+// INITIALIZATION & EVENT LISTENERS
+// ==============================
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+  // Set up initial year
+  const yearElement = document.getElementById('year');
+  if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+  }
+
+  // Start tip rotation
+  rotateTip();
+  setInterval(rotateTip, 30000); // Rotate every 30 seconds
+
+  // Update analytics when dashboard is opened
+  setTimeout(() => {
+    updateAnalytics();
+  }, 1000);
+
+  // Add click listener for analytics tab to animate bars
+  const analyticsTab = document.querySelector('.side .item[data-tab="analytics"]');
+  if (analyticsTab) {
+    analyticsTab.addEventListener('click', () => {
+      setTimeout(animateMoodBars, 300); // Delay for tab transition
+    });
+  }
 });

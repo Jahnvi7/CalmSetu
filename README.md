@@ -16,10 +16,9 @@ It helps users check in on their emotions, chat with an AI buddy, track moods, a
 ---
 
 ## 🛠️ Project Structure
-CalmSetu/
-│── app.py # Flask backend (API endpoints + Gemini integration + SQLite DB)
-│── calmsetu.db # SQLite database (auto-created if missing)
-│── index.html # Main frontend (landing, login, dashboard, chat UI)
-│── script.js # Frontend logic (navigation, chatbot, analytics, quick actions)
-│── style.css # UI styling (dark/light theme, chatbot design, animations)
+app.py # Flask backend (API endpoints + Gemini integration + SQLite DB)
+calmsetu.db # SQLite database (auto-created if missing)
+index.html # Main frontend (landing, login, dashboard, chat UI)
+script.js # Frontend logic (navigation, chatbot, analytics, quick actions)
+style.css # UI styling (dark/light theme, chatbot design, animations)
 ---
